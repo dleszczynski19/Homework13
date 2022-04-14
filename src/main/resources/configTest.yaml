@@ -1,0 +1,31 @@
+browser:
+  browserName: chrome
+  headlessBrowser: false
+  webElementTimeOut: 15
+  appUrl: http://146.59.32.4/index.php
+currentEnv: test
+environments:
+  test:
+    envName: test
+    firstName: John
+    lastName: Frusciante
+    email: jfrusciante@sii.pl
+    age: 51
+    profession: AUTOMATION
+    commands:
+      - WAIT
+      - SWITCH
+    filePath: src/main/resources/files/file.txt
+    message: Form send with success
+  integrate:
+    envName: integrate
+    firstName: Anthony
+    lastName: Kiedis
+    email: akiedys@sii.pl
+    age: 60
+    profession: MANUAL
+    commands:
+      - WAIT
+      - SWITCH
+    filePath: src/main/resources/files/file.txt
+    message: Form send with success

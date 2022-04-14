@@ -1,0 +1,40 @@
+{
+  "socialTitle": "Mrs.",
+  "firstName": "Nathanael",
+  "lastName": "Dooley",
+  "email": "gknta718@gmail.com",
+  "password": "U1cB4Ac8k",
+  "month": 1,
+  "day": 9,
+  "year": 1990,
+  "receiveOffers": true,
+  "dataPrivacy": true,
+  "singUpNewsletter": true,
+  "acceptPolicy": true
+}{
+  "socialTitle": "Mr.",
+  "firstName": "Ardith",
+  "lastName": "Hoppe",
+  "email": "ltwde670@gmail.com",
+  "password": "0m0vMhI",
+  "month": 11,
+  "day": 26,
+  "year": 2002,
+  "receiveOffers": false,
+  "dataPrivacy": true,
+  "singUpNewsletter": false,
+  "acceptPolicy": true
+}{
+  "socialTitle": "Mrs.",
+  "firstName": "Ashton",
+  "lastName": "Herzog",
+  "email": "znsmt659@gmail.com",
+  "password": "MFUh7t8",
+  "month": 7,
+  "day": 27,
+  "year": 1982,
+  "receiveOffers": false,
+  "dataPrivacy": true,
+  "singUpNewsletter": false,
+  "acceptPolicy": true
+}
