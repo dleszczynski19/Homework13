@@ -1,5 +1,6 @@
 package com.shop.pages;
 
+import com.shop.pages.models.ProductModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,8 +12,8 @@ import java.util.List;
 
 public class HomePage extends HeaderPage {
     private static Logger log = LoggerFactory.getLogger(HomePage.class);
-    private List<ProductPage> allProductsList = new ArrayList<>();
-    private ProductPage currentProduct;
+    private List<ProductModel> allProductsList;
+    private ProductModel currentProduct;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -25,46 +26,46 @@ public class HomePage extends HeaderPage {
     @FindBy(css = "#main [itemprop=\"itemListElement\"]")
     private List<WebElement> productsList;
 
-    //region Search
-    public HomePage searchItem(String searchText) {
-        sendKeys(searchInput, searchText);
-        log.info("Item \"" + searchText + "\" searched");
-        return this;
-    }
-
-    public HomePage clickSearch() {
-        click(searchButton);
-        log.info("Moved to search page");
-        return this;
-    }
-    //endregion
-
     //region Products
     public String getRandomProductName() {
-        waitForElement(productsList.get(0));
-        currentProduct = allProductsList.get(getRandomNumber(0, allProductsList.size()) - 1);
+        waitForElement(productsList.get(1));
+        currentProduct = allProductsList.get(getRandomNumber(0, allProductsList.size() - 1));
         String productName = currentProduct.getProductName();
         log.info("Current product name set to: " + productName);
         return productName;
     }
 
+    public HomePage clickOnProduct(WebElement product) {
+        clickOnElement(product);
+        return this;
+    }
+
+    public WebElement getRandomProduct() {
+        waitForElement(productsList.get(1));
+        currentProduct = allProductsList.get(getRandomNumber(0, allProductsList.size() - 1));
+        return currentProduct.getProductLink();
+    }
 
     public HomePage setAllProducts() {
+        allProductsList = new ArrayList<>();
         waitForElement(productsList.get(0));
         for (WebElement product : productsList) {
-            allProductsList.add(new ProductPage(driver, product));
+            allProductsList.add(new ProductModel(driver, product));
         }
         log.info("All products on page set");
         return this;
     }
 
-    public List<ProductPage> getAllProductsList() {
+    public List<ProductModel> getAllProductsList() {
         return allProductsList;
     }
 
-    public ProductPage getCurrentProduct() {
+    public ProductModel getCurrentProduct() {
         return currentProduct;
     }
-    //endregion
 
+    public List<WebElement> getProductsList() {
+        return productsList;
+    }
+    //endregion
 }

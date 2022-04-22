@@ -3,7 +3,8 @@ package com.shop.pages.handlers;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
-import com.shop.pages.configuration.WebElementHelper;
+import com.shop.pages.helpers.WebElementHelper;
+import org.apache.commons.text.WordUtils;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Date;
@@ -50,5 +51,25 @@ public class DataHandler extends WebElementHelper {
 
     public int getRandomNumber(int from, int to) {
         return faker.random().nextInt(from, to);
+    }
+
+    public double getPercentOfNumber(double firstNumber, double secondNumber) {
+        return (secondNumber / firstNumber) * 100;
+    }
+
+    public int parseInt(String value) {
+        return Integer.parseInt(value.replaceAll("[^0-9]", ""));
+    }
+
+    public double parseDouble(String value) {
+        return Double.parseDouble(value.replaceAll("[^0-9.]", ""));
+    }
+
+    public String getOnlyFirstLetterUpperCase(String text) {
+        return text.substring(0, 1).toUpperCase(Locale.ROOT) + text.substring(1).toLowerCase(Locale.ROOT);
+    }
+
+    public String getEachFirstWordLetterUpperCase(String text){
+        return WordUtils.capitalize(text.toLowerCase(Locale.ROOT));
     }
 }

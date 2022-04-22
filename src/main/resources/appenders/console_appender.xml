@@ -6,7 +6,9 @@
     <property name="consoleTestPattern"
               value="%30(%boldMagenta(%class{0})) %magenta(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level - %msg%n)"/>
     <property name="consoleMethodPattern"
-              value="%38(%boldCyan(%class{0})) %cyan(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level - %msg%n)"/>
+              value="%42(%boldCyan(%class{0})) %cyan(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level - %msg%n)"/>
+    <property name="consoleStepsPattern"
+              value="%38(%boldYellow(%class{0})) %yellow(%d{yyyy-MM-dd HH:mm:ss}) %boldYellow(%-5level - %msg%n)"/>
     <property name="passedTestPattern"
               value="%30(%boldGreen(%class{0})) %green(%d{yyyy-MM-dd HH:mm:ss}) %boldGreen(%marker - %msg%n)"/>
     <property name="envInitPattern"
@@ -30,6 +32,10 @@
             <rule>
                 <logger>com.shop.pages</logger>
                 <pattern>${consoleMethodPattern}</pattern>
+            </rule>
+            <rule>
+                <logger>com.shop.steps</logger>
+                <pattern>${consoleStepsPattern}</pattern>
             </rule>
             <rule>
                 <logger>com.test</logger>

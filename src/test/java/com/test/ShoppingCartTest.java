@@ -6,16 +6,15 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CategoriesTest extends TestBase {
+public class ShoppingCartTest extends TestBase {
     private Logger log = LoggerFactory.getLogger(CategoriesTest.class);
 
     @Test
-    public void shouldMatchesAllCategoriesProperties() {
+    public void isProductSuccessfullyAddedToCart() {
         HeaderStep headerStep = new HeaderStep(driver, homePage);
 
-        headerStep
-                .checkEachCategoryProperties()
-                .checkEachSubcategoryProperties();
-        log.info(passed, passedMessage);
+        for (int i = 0; i < 3; i++) {
+            headerStep.addRandomItemToCart();
+        }
     }
 }
