@@ -1,4 +1,4 @@
-package com.test;
+package com.test.shop;
 
 import com.configuration.TestBase;
 import com.shop.steps.HeaderStep;
@@ -14,7 +14,10 @@ public class ShoppingCartTest extends TestBase {
         HeaderStep headerStep = new HeaderStep(driver, homePage);
 
         for (int i = 0; i < 3; i++) {
-            headerStep.addRandomItemToCart();
+            assert headerStep
+                    .clickOnRandomItem()
+                    .isItemProperlyAddToCart() : "Item is not properly added to cart";
+            homePage.goToHomePage();
         }
     }
 }

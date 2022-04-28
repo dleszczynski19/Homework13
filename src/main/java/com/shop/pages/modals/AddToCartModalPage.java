@@ -1,5 +1,6 @@
-package com.shop.pages;
+package com.shop.pages.modals;
 
+import com.shop.pages.HeaderPage;
 import com.shop.pages.models.ItemModel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,10 @@ public class AddToCartModalPage extends HeaderPage {
     private static Logger log = LoggerFactory.getLogger(AddToCartModalPage.class);
     private ItemModel itemModel;
     private int quantityCount = 0;
+
+    public AddToCartModalPage(WebDriver driver) {
+        super(driver);
+    }
 
     public AddToCartModalPage(WebDriver driver, ItemModel itemModel) {
         super(driver);
@@ -50,6 +55,9 @@ public class AddToCartModalPage extends HeaderPage {
     @FindBy(css = ".modal-header button")
     private WebElement closeModalWindow;
 
+    @FindBy(css = "a.btn.btn-primary")
+    private WebElement checkoutButton;
+
     public String getProductName() {
         String name = getElementText(modalProductName);
         log.info("Products modal name: " + name);
@@ -74,8 +82,19 @@ public class AddToCartModalPage extends HeaderPage {
         return count;
     }
 
+    public AddToCartModalPage chooseShoppingAction(boolean isContinueShopping) {
+        if (isContinueShopping) continueShopping();
+        else proceedToCheckout();
+        return this;
+    }
+
     public AddToCartModalPage continueShopping() {
         clickOnElement(continueShoppingButton);
+        return this;
+    }
+
+    public AddToCartModalPage proceedToCheckout() {
+        clickOnElement(checkoutButton);
         return this;
     }
 

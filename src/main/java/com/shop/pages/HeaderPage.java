@@ -15,6 +15,7 @@ public class HeaderPage extends FooterPage {
     private List<WebElement> categoriesList = new ArrayList<>();
     private final String subMenuSelector = ".popover.sub-menu.js-sub-menu.collapse li";
     private int shoppingCartAmount = 0;
+    private String orderReference;
 
     public HeaderPage(WebDriver driver) {
         super(driver);
@@ -50,10 +51,31 @@ public class HeaderPage extends FooterPage {
     @FindBy(css = ".cart-products-count")
     private WebElement shoppingCartItemsCount;
 
+    @FindBy(css = "#_desktop_cart a")
+    private WebElement basketButton;
+
+    @FindBy(css = "#_desktop_user_info a")
+    private WebElement signInButton;
+
+    @FindBy(css = ".account")
+    private WebElement accountLabel;
+
     public HomePage goToHomePage() {
         clickOnElement(homeLogo);
-        waitForSite(siteTitle);
+        waitForPageLoaded();
         return new HomePage(driver);
+    }
+
+    public HeaderPage goToBasket() {
+        clickOnElement(basketButton);
+        waitForPageLoaded();
+        return this;
+    }
+
+    public HeaderPage goToSignIn() {
+        clickOnElement(signInButton);
+        waitForPageLoaded();
+        return this;
     }
 
     public boolean isItemDisplayedInDropdown(String itemName) {
@@ -114,6 +136,15 @@ public class HeaderPage extends FooterPage {
     public HeaderPage goToCategory(WebElement category) {
         findElementInAnotherElement(category, "a").click();
         return this;
+    }
+
+    public HeaderPage goToMyAccount(){
+        clickOnElement(accountLabel);
+        return this;
+    }
+
+    public String getUserAccountName() {
+        return getElementText(accountLabel);
     }
 
     public int getShoppingCartItemsCount() {

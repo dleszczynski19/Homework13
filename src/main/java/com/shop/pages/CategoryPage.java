@@ -106,16 +106,7 @@ public class CategoryPage extends HeaderPage {
         WebElement slider;
         if (isMin) slider = priceSliderList.get(0);
         else slider = priceSliderList.get(1);
-        Keys direction;
-        double priceFilter = getPriceFilter(isMin);
-        double slideValue = filterValue - priceFilter;
-        if (priceFilter != filterValue) {
-            if (slideValue > 0) direction = Keys.ARROW_RIGHT;
-            else direction = Keys.ARROW_LEFT;
-            for (int i = 0; i < Math.abs(slideValue); i++) {
-                sendActionToElement(slider, direction);
-            }
-        }
+        setValueWithKeyArrow(slider, getPriceFilter(isMin), filterValue, true);
         log.info("Value of isMin: " + isMin + " set to: " + filterValue);
         return this;
     }

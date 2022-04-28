@@ -9,9 +9,9 @@ public final class User {
     private String lastName;
     private String email;
     private String password;
-    private int month;
-    private int day;
-    private int year;
+    private String month;
+    private String day;
+    private String year;
     private boolean receiveOffers;
     private boolean dataPrivacy;
     private boolean singUpNewsletter;
@@ -43,9 +43,9 @@ public final class User {
         private String lastName;
         private String email;
         private String password;
-        private int month;
-        private int day;
-        private int year;
+        private String month;
+        private String day;
+        private String year;
         private boolean receiveOffers;
         private boolean dataPrivacy;
         private boolean singUpNewsletter;
@@ -76,17 +76,17 @@ public final class User {
             return this;
         }
 
-        public UserBuilder month(int month) {
+        public UserBuilder month(String month) {
             this.month = month;
             return this;
         }
 
-        public UserBuilder day(int day) {
+        public UserBuilder day(String day) {
             this.day = day;
             return this;
         }
 
-        public UserBuilder year(int year) {
+        public UserBuilder year(String year) {
             this.year = year;
             return this;
         }

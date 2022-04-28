@@ -111,6 +111,24 @@ public class WebElementHelper extends BasePage {
                 .orElseThrow(() -> new RuntimeException("Can't find option"));
     }
 
+    public WebElement findElementByCss(String selector){
+        return driver.findElement(By.cssSelector(selector));
+    }
+
+    public WebElement findElementByContainName(List<WebElement> elementList, String element) {
+        return elementList.stream()
+                .filter(el -> el.getText().contains(element))
+                .reduce((f, s) -> s)
+                .orElseThrow(() -> new RuntimeException("Can't find option"));
+    }
+
+    public WebElement findElementByElementInside(List<WebElement> elementList, String childrenSelector, String attribute, String value) {
+        return   elementList.stream().filter(el -> el.findElement(By.cssSelector(childrenSelector)).getAttribute(attribute).equals(value))
+                .reduce((f,s) -> s)
+                .orElseThrow(() -> new RuntimeException("Can't find option"));
+
+    }
+
     public Select getSelect(WebElement element) {
         return new Select(element);
     }
@@ -202,6 +220,10 @@ public class WebElementHelper extends BasePage {
 
     public String getElementText(WebElement element) {
         return element.getText();
+    }
+
+    public String getElementValue(WebElement element) {
+        return element.getAttribute("value");
     }
 
     public WebElement getRandomElement(List<WebElement> list) {

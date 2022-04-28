@@ -1,4 +1,4 @@
-package com.test;
+package com.test.shop;
 
 import com.configuration.TestBase;
 import com.shop.steps.PricesDropStep;

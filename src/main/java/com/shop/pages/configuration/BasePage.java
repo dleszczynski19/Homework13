@@ -1,6 +1,7 @@
 package com.shop.pages.configuration;
 
 import org.apache.commons.io.FileUtils;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.server.handler.WebElementHandler;
 import org.openqa.selenium.support.FindBy;
@@ -19,6 +20,7 @@ public class BasePage {
     protected JavascriptExecutor js;
     protected WebDriverWait wait;
     protected static PagesFactory pageFactory;
+    protected SoftAssertions softAssert;
 
     public BasePage() {
     }
@@ -29,6 +31,7 @@ public class BasePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         js = (JavascriptExecutor) driver;
         pageFactory = new PagesFactory(driver);
+        softAssert = new SoftAssertions();
     }
 
     @FindBy(css = "#wrapper ol")

@@ -1,5 +1,6 @@
 package com.shop.pages;
 
+import com.shop.pages.modals.AddToCartModalPage;
 import com.shop.pages.models.ItemCartModel;
 import com.shop.pages.models.ItemModel;
 import org.openqa.selenium.WebDriver;
@@ -134,7 +135,6 @@ public class ProductPage extends HeaderPage {
     public String getProductName() {
         String productName = itemName.getText();
         this.productName = productName;
-        log.info("Product name is: " + productName);
         return productName;
     }
 
@@ -210,7 +210,7 @@ public class ProductPage extends HeaderPage {
         return this;
     }
 
-    public ProductPage setCustomizableMessage(){
+    public ProductPage setCustomizableMessage() {
         if (isCustomizable()) {
             sendKeysToElement(customizationMessage, getRandomFirstName());
             clickOnElement(customization);
@@ -221,5 +221,9 @@ public class ProductPage extends HeaderPage {
 
     public boolean isCorrectDiscount(String discountValue) {
         return parseDouble(discountValue) == (100 - (getPercentOfNumber(getProductRegularPrice(), getProductPrice())));
+    }
+
+    public ItemCartModel getItemCartModel() {
+        return itemCartModel;
     }
 }

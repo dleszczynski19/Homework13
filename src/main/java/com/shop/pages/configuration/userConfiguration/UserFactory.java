@@ -25,22 +25,20 @@ public class UserFactory extends DataHandler {
     public User getRandomUser() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(getRandomBirthday());
-        User user = new User.UserBuilder()
+        return new User.UserBuilder()
                 .socialTitle(getRandomSocialTitle())
                 .firstName(getRandomFirstName())
                 .lastName(getRandomLastName())
                 .email(getRandomEmail())
                 .password(getRandomPassword(5, 10, true))
-                .month(cal.get(Calendar.MONTH))
-                .day(cal.get(Calendar.DAY_OF_MONTH))
-                .year(cal.get(Calendar.YEAR))
+                .month(String.valueOf(cal.get(Calendar.MONTH) + 1))
+                .day(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)))
+                .year(String.valueOf(cal.get(Calendar.YEAR)))
                 .receiveOffers(getRandomBoolean())
                 .dataPrivacy(true)
                 .singUpNewsletter(getRandomBoolean())
                 .acceptPolicy(true)
                 .build();
-        fileHandler.addUserToFile(user);
-        return user;
     }
 
     public User getAlreadyRegisteredUser() {
@@ -53,5 +51,9 @@ public class UserFactory extends DataHandler {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public FileHandler getFileHandler() {
+        return fileHandler;
     }
 }

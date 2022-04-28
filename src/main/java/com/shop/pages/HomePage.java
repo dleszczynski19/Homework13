@@ -48,7 +48,6 @@ public class HomePage extends HeaderPage {
 
     public HomePage setAllProducts() {
         allProductsList = new ArrayList<>();
-        waitForElement(productsList.get(0));
         for (WebElement product : productsList) {
             allProductsList.add(new ProductModel(driver, product));
         }

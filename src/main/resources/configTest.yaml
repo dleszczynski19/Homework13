@@ -10,5 +10,8 @@ environments:
     discount: -20%
     discountValue: 20
     discountLabel: SAVE 20%
+    basketTestItemToAdd: 5
+    basketTestProductToModify: 0
+    basketTestProductQuantity: 5
   integrate:
     envName: integrate
