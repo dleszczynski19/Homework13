@@ -1,4 +1,4 @@
-package com.shop.pages.models;
+package com.shop.pages.models.items;
 
 import com.shop.pages.HeaderPage;
 import org.openqa.selenium.WebDriver;
@@ -7,9 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 
-public class OrderRowModel extends HeaderPage {
+public class OrderConfirmationRowModel extends HeaderPage implements productsProperties{
 
-    public OrderRowModel(WebDriver driver, WebElement orderRow) {
+    public OrderConfirmationRowModel(WebDriver driver, WebElement orderRow) {
         super(driver);
         PageFactory.initElements(new DefaultElementLocatorFactory(orderRow), this);
     }
@@ -26,7 +26,7 @@ public class OrderRowModel extends HeaderPage {
     @FindBy(css = ".col-xs-4.text-sm-center.text-xs-right.bold")
     private WebElement productTotalPrice;
 
-    public String getProductInformation() {
+    public String getProductName() {
         return getElementText(productInformation);
     }
 
@@ -44,6 +44,6 @@ public class OrderRowModel extends HeaderPage {
 
     @Override
     public String toString() {
-        return getProductInformation() + "\n" + getProductUnitPrice() + "\n" + getProductTotalPrice() + "\n" + getProductQuantity();
+        return getProductName() + "\n" + getProductUnitPrice() + "\n" + getProductTotalPrice() + "\n" + getProductQuantity();
     }
 }

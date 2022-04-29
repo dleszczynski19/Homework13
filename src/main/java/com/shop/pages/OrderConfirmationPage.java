@@ -1,6 +1,6 @@
 package com.shop.pages;
 
-import com.shop.pages.models.OrderRowModel;
+import com.shop.pages.models.items.OrderConfirmationRowModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderConfirmationPage extends HeaderPage {
-    private List<OrderRowModel> allItemsList;
+    private List<OrderConfirmationRowModel> allItemsList;
 
     public OrderConfirmationPage(WebDriver driver) {
         super(driver);
@@ -29,7 +29,7 @@ public class OrderConfirmationPage extends HeaderPage {
         allItemsList = new ArrayList<>();
         waitForListSizeIsHigherThanZero(orderedItemsList);
         for (WebElement item : orderedItemsList) {
-            allItemsList.add(new OrderRowModel(driver, item));
+            allItemsList.add(new OrderConfirmationRowModel(driver, item));
         }
         return this;
     }
@@ -39,7 +39,7 @@ public class OrderConfirmationPage extends HeaderPage {
                 .replaceAll("Order reference: ", "");
     }
 
-    public List<OrderRowModel> getAllItemsList() {
+    public List<OrderConfirmationRowModel> getAllItemsList() {
         return allItemsList;
     }
 }

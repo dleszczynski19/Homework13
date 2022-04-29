@@ -77,10 +77,7 @@ public class DataHandler extends WebElementHelper {
         if (country.equals(countryArray[1])) {
             state = faker.address().state();
             stateAbbr = new StateAbbrHandler().getStates().get(state);
-        }
-        else state = null;
-        System.out.println("STATE ABNR: " + stateAbbr);
-        System.out.println("STATE : " + state);
+        } else state = null;
         return state;
     }
 
@@ -144,7 +141,7 @@ public class DataHandler extends WebElementHelper {
         }
     }
 
-    public String getCurrentDate(String pattern){
+    public String getCurrentDate(String pattern) {
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         Date date = new Date();
         return formatter.format(date);
@@ -154,7 +151,7 @@ public class DataHandler extends WebElementHelper {
         return (double) Math.round(number * 100) / 100;
     }
 
-    public String substringToFirstOccurOfSign(String base, String sign){
+    public String substringToFirstOccurOfSign(String base, String sign) {
         int end = base.indexOf(sign);
         return base.substring(0, end);
     }

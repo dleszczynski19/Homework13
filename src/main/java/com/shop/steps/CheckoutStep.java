@@ -5,9 +5,9 @@ import com.shop.pages.*;
 import com.shop.pages.configuration.userConfiguration.ShippingFactory;
 import com.shop.pages.modals.AddToCartModalPage;
 import com.shop.pages.models.ItemModel;
-import com.shop.pages.models.OrderDetailsItemModel;
 import com.shop.pages.models.OrderHistoryModel;
-import com.shop.pages.models.OrderRowModel;
+import com.shop.pages.models.items.OrderConfirmationRowModel;
+import com.shop.pages.models.items.OrderDetailsItemModel;
 import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
@@ -62,19 +62,18 @@ public class CheckoutStep extends HeaderPage {
 
     public CheckoutStep checkOrderItems() {
         waitForPageLoaded();
-        List<OrderRowModel> allItemsList = orderConfirmationPage.setAllItemsList().getAllItemsList();
+        List<OrderConfirmationRowModel> allItemsList = orderConfirmationPage.setAllItemsList().getAllItemsList();
         for (ItemModel itemModel : basket) {
-            OrderRowModel order = allItemsList.stream()
+            OrderConfirmationRowModel order = allItemsList.stream()
                     .filter(orderRow -> orderRow.getProductUnitPrice() == itemModel.getProductPrice())
                     .filter(orderRow -> orderRow.getProductQuantity() == itemModel.getQuantityAmount())
                     .filter(orderRow -> orderRow.getProductTotalPrice() == itemModel.getQuantityAmount() * itemModel.getProductPrice())
-                    .filter(orderRow -> orderRow.getProductInformation().contains(itemModel.getItemName()))
+                    .filter(orderRow -> orderRow.getProductName().contains(itemModel.getItemName()))
                     .reduce((f, s) -> f)
                     .orElseThrow(() -> new RuntimeException("Can't find item"));
             allItemsList.remove(order);
         }
         softAssert.assertThat(allItemsList.size()).isEqualTo(0);
-        softAssert.assertAll();
         return this;
     }
 
@@ -94,7 +93,6 @@ public class CheckoutStep extends HeaderPage {
         softAssert.assertThat(order.getDate()).isEqualTo(orderPropertyMap.get("date"));
         softAssert.assertThat(order.getPayment()).contains(orderPropertyMap.get("paymentType"));
         softAssert.assertThat(order.getStatus()).isEqualTo(orderPropertyMap.get("paymentStatus"));
-        softAssert.assertAll();
         return this;
     }
 
@@ -109,14 +107,14 @@ public class CheckoutStep extends HeaderPage {
     }
 
     public CheckoutStep checkOrderedItems() {
-        List<OrderDetailsItemModel> allItemsList = orderDetailsPage.setALlOrderedItemList().getAllOrderedItemList();
+        List<OrderDetailsItemModel> allItemsList = orderDetailsPage.getAllOrderedItemList();
 
         for (ItemModel itemModel : basket) {
             OrderDetailsItemModel order = allItemsList.stream()
+                    .filter(orderRow -> orderRow.getProductName().contains(itemModel.getItemName()))
+                    .filter(orderRow -> orderRow.getProductTotalPrice() == itemModel.getQuantityAmount() * itemModel.getProductPrice())
                     .filter(orderRow -> orderRow.getProductUnitPrice() == itemModel.getProductPrice())
                     .filter(orderRow -> orderRow.getProductQuantity() == itemModel.getQuantityAmount())
-                    .filter(orderRow -> orderRow.getProductTotalPrice() == itemModel.getQuantityAmount() * itemModel.getProductPrice())
-                    .filter(orderRow -> orderRow.getProductInformation().contains(itemModel.getItemName()))
                     .reduce((f, s) -> f)
                     .orElseThrow(() -> new RuntimeException("Can't find option"));
             allItemsList.remove(order);
@@ -130,6 +128,11 @@ public class CheckoutStep extends HeaderPage {
         softAssert.assertThat(orderDetailsPage.getZipCode(isDeliveryAddress)).isEqualTo(orderPropertyMap.get("code"));
         softAssert.assertThat(orderDetailsPage.getCity(isDeliveryAddress)).isEqualTo(orderPropertyMap.get("city"));
         softAssert.assertThat(orderDetailsPage.getCountry(isDeliveryAddress)).isEqualTo(orderPropertyMap.get("country"));
+        return this;
+    }
+
+    public CheckoutStep assertCheckoutTest() {
+        softAssert.assertAll();
         return this;
     }
 }

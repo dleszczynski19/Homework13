@@ -3,7 +3,6 @@ package com.shop.pages.configuration;
 import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.*;
-import org.openqa.selenium.remote.server.handler.WebElementHandler;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;

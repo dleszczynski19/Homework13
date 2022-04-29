@@ -26,7 +26,6 @@ public class WebElementHelper extends BasePage {
             wait.until(ExpectedConditions.elementToBeClickable(element));
             element.click();
         } catch (StaleElementReferenceException sere) {
-            // simply retry finding the element in the refreshed DOM
             element.click();
         } catch (TimeoutException toe) {
             log.error("Element " + element.toString() + " was not clickable after 10 seconds");
@@ -111,7 +110,7 @@ public class WebElementHelper extends BasePage {
                 .orElseThrow(() -> new RuntimeException("Can't find option"));
     }
 
-    public WebElement findElementByCss(String selector){
+    public WebElement findElementByCss(String selector) {
         return driver.findElement(By.cssSelector(selector));
     }
 
@@ -123,8 +122,8 @@ public class WebElementHelper extends BasePage {
     }
 
     public WebElement findElementByElementInside(List<WebElement> elementList, String childrenSelector, String attribute, String value) {
-        return   elementList.stream().filter(el -> el.findElement(By.cssSelector(childrenSelector)).getAttribute(attribute).equals(value))
-                .reduce((f,s) -> s)
+        return elementList.stream().filter(el -> el.findElement(By.cssSelector(childrenSelector)).getAttribute(attribute).equals(value))
+                .reduce((f, s) -> s)
                 .orElseThrow(() -> new RuntimeException("Can't find option"));
 
     }
@@ -182,7 +181,7 @@ public class WebElementHelper extends BasePage {
         }
     }
 
-    public boolean isAjaxCompletedTasks(){
+    public boolean isAjaxCompletedTasks() {
         String state = js.executeScript("return jQuery.active").toString();
         return state.equals("0");
     }
@@ -196,7 +195,7 @@ public class WebElementHelper extends BasePage {
         return state.equals("complete");
     }
 
-    public void waitForPageLoaded(){
+    public void waitForPageLoaded() {
         wait.until(driver1 -> isPageProperlyLoaded());
     }
 

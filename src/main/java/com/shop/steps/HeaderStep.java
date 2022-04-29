@@ -1,8 +1,8 @@
 package com.shop.steps;
 
 import com.shop.pages.*;
-import com.shop.pages.models.BasketRowModel;
 import com.shop.pages.models.ItemModel;
+import com.shop.pages.models.items.BasketRowModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -29,7 +29,8 @@ public class HeaderStep extends HeaderPage {
         setCategoriesList();
         for (WebElement category : getCategoriesList()) {
             hoverOnCategory(category);
-            assert isSubMenuDisplayed(category) && checkElementValues(category);
+            checkSubMenuDisplayed(category);
+            checkElementValues(category);
             goToHomePage();
         }
         return this;
@@ -47,15 +48,14 @@ public class HeaderStep extends HeaderPage {
 
         for (int i = 0; i < subcategoriesList.size(); i++) {
             subcategoriesList = getSubCategoriesList(category);
-            assert checkElementValues(subcategoriesList.get(i), category) : "Wrong value for subcategory";
+            checkElementValues(subcategoriesList.get(i), category);
             goToHomePage();
         }
         return this;
     }
 
-    private boolean checkElementValues(WebElement category, WebElement... parentCategory) {
+    private HeaderStep checkElementValues(WebElement category, WebElement... parentCategory) {
         WebElement link = findElementInAnotherElement(category, "a");
-        boolean assertion;
         String elementName = link.getText();
         String parentCategoryName = null;
         categoryPage = new CategoryPage(driver, category, elementName);
@@ -63,11 +63,11 @@ public class HeaderStep extends HeaderPage {
             parentCategoryName = findElementInAnotherElement(parentCategory[0], "a").getText();
         }
         clickOnElement(link);
-        assertion = categoryPage.isOnCategoryPage(parentCategoryName) &&
-                categoryPage.isCategoryNameEqualsHeader(elementName) &&
-                categoryPage.isLabelAmountEqualsProductAmount();
-        log.info("Element: " + elementName + " checked status: " + assertion);
-        return assertion;
+        softAssert.assertThat(categoryPage.isOnCategoryPage(parentCategoryName)).isTrue();
+        softAssert.assertThat(categoryPage.isCategoryNameEqualsHeader(elementName)).isTrue();
+        softAssert.assertThat(categoryPage.isLabelAmountEqualsProductAmount()).isTrue();
+        log.info("Element: " + elementName + " checked");
+        return this;
     }
 
     public HeaderStep clickOnRandomItem() {
@@ -76,7 +76,7 @@ public class HeaderStep extends HeaderPage {
         String categoryName = category.getText();
         clickOnElement(category);
         categoryPage = new CategoryPage(driver, category, categoryName);
-        new CategoryStep(driver, categoryPage).goToRandomItem();
+        new CategoryStep(driver, categoryPage, homePage).goToRandomItem();
         return this;
     }
 
@@ -89,6 +89,7 @@ public class HeaderStep extends HeaderPage {
             addItemToBasket(isContinueShopping);
             goToHomePage();
         }
+        log.info("Items properly add to basket");
         return this;
     }
 
@@ -97,6 +98,7 @@ public class HeaderStep extends HeaderPage {
             addItemToBasket(quantityCount, isContinueShopping);
             goToHomePage();
         }
+        log.info("Items properly add to basket");
         return this;
     }
 
@@ -127,13 +129,12 @@ public class HeaderStep extends HeaderPage {
         for (BasketRowModel basketRowModel : allItemsList) {
             List<ItemModel> collect = itemList.stream()
                     .filter(itemModel -> itemModel.getItemName().equals(basketRowModel.getProductName()))
-                    .filter(itemModel -> itemModel.getProductPrice() == basketRowModel.getProductPrice())
+                    .filter(itemModel -> itemModel.getProductPrice() == basketRowModel.getProductUnitPrice())
                     .filter(itemModel -> itemModel.getQuantityAmount() == basketRowModel.getProductQuantity())
                     .collect(Collectors.toList());
             itemList.remove(collect.get(0));
         }
         softAssert.assertThat(itemList.size()).isEqualTo(0);
-        softAssert.assertAll();
         return this;
     }
 
@@ -144,17 +145,29 @@ public class HeaderStep extends HeaderPage {
     public HeaderStep checkBasketQuantity() {
         cartPage.setAllItemsList()
                 .isQuantityAdd(parseInt(System.getProperty("basketTestProductQuantity")))
-                .isQuantityAdd(parseInt(System.getProperty("basketTestProductQuantity")) + 1)
-                .isQuantityAdd(parseInt(System.getProperty("basketTestProductQuantity")) - 1);
+                .isQuantityAdd(parseInt(System.getProperty("basketTestProductQuantity")))
+                .isQuantityAdd(parseInt(System.getProperty("basketTestProductQuantity")));
         return this;
     }
 
-    public HeaderStep checkEachItemDelete() {
+    public HeaderStep checkEachItemDeleted() {
         List<BasketRowModel> allItemsList = cartPage.setAllItemsList()
                 .getAllItemsList();
         for (int i = 0; i < allItemsList.size(); i++) {
             cartPage.deleteItemFromBasket(cartPage.getRandomIndexFromItemList());
         }
+        return this;
+    }
+
+    public HeaderStep assertBasketTest() {
+        cartPage.assertAll();
+        softAssert.assertAll();
+        return this;
+    }
+
+    public HeaderStep assertCategoriesTest() {
+        assertAll();
+        softAssert.assertAll();
         return this;
     }
 }

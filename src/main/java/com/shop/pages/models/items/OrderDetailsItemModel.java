@@ -1,4 +1,4 @@
-package com.shop.pages.models;
+package com.shop.pages.models.items;
 
 import com.shop.pages.HeaderPage;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 
-public class OrderDetailsItemModel extends HeaderPage {
+public class OrderDetailsItemModel extends HeaderPage implements productsProperties {
 
     public OrderDetailsItemModel(WebDriver driver, WebElement element) {
         super(driver);
@@ -26,7 +26,7 @@ public class OrderDetailsItemModel extends HeaderPage {
     @FindBy(xpath = "td[4]")
     private WebElement productTotalPrice;
 
-    public String getProductInformation() {
+    public String getProductName() {
         return getElementText(productInformation);
     }
 
@@ -44,6 +44,15 @@ public class OrderDetailsItemModel extends HeaderPage {
 
     @Override
     public String toString() {
-        return getProductInformation() + "\n" + getProductUnitPrice() + "\n" + getProductTotalPrice() + "\n" + getProductQuantity();
+        return getProductName() + "\n" + getProductUnitPrice() + "\n" + getProductTotalPrice() + "\n" + getProductQuantity();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        OrderDetailsItemModel order = (OrderDetailsItemModel) object;
+        return getProductName().equals(order.getProductName()) && getProductUnitPrice() == (order.getProductUnitPrice())
+                && getProductTotalPrice() == (order.getProductTotalPrice()) && getProductQuantity() == order.getProductQuantity();
     }
 }

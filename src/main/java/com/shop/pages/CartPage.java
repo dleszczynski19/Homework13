@@ -1,6 +1,6 @@
 package com.shop.pages;
 
-import com.shop.pages.models.BasketRowModel;
+import com.shop.pages.models.items.BasketRowModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -54,7 +54,7 @@ public class CartPage extends HeaderPage {
         itemCountBefore = getItemsInBasketCount();
         shippingPrice = getShippingCost();
         BasketRowModel item = allItemsList.get(itemIndex);
-        double itemPrice = item.getProductSummaryPrice();
+        double itemPrice = item.getProductTotalPrice();
         int itemQuantity = item.getProductQuantity();
         clickOnElement(item.getDeleteProductIcon());
         waitForPageLoaded();
@@ -66,25 +66,28 @@ public class CartPage extends HeaderPage {
             softAssert.assertThat(roundUpToSecondDecimalPlace(totalPriceBefore - itemPrice))
                     .isEqualTo(getTotalCost());
         }
-        softAssert.assertAll();
         return this;
     }
 
     public CartPage isQuantityAdd(int quantityToAdd) {
         BasketRowModel basketRowModel = allItemsList.get(parseInt(System.getProperty("basketTestProductToModify")));
         int quantityBefore = basketRowModel.getProductQuantity();
-        double priceBefore = basketRowModel.getProductSummaryPrice();
+        double priceBefore = basketRowModel.getProductTotalPrice();
         double priceForOneItem = priceBefore / quantityBefore;
         basketRowModel.setProductQuantity(quantityToAdd);
         setAllItemsList();
         basketRowModel = allItemsList.get(parseInt(System.getProperty("basketTestProductToModify")));
         softAssert.assertThat(basketRowModel.getProductQuantity()).isEqualTo(quantityToAdd);
-        softAssert.assertThat(roundUpToSecondDecimalPlace(priceForOneItem * quantityToAdd)).isEqualTo(basketRowModel.getProductSummaryPrice());
+        softAssert.assertThat(roundUpToSecondDecimalPlace(priceForOneItem * quantityToAdd)).isEqualTo(basketRowModel.getProductTotalPrice());
+        return this;
+    }
+
+    public CartPage assertAll() {
         softAssert.assertAll();
         return this;
     }
 
-    public CartPage proceedToCheckout(){
+    public CartPage proceedToCheckout() {
         clickOnElement(checkoutButton);
         return this;
     }
@@ -98,7 +101,9 @@ public class CartPage extends HeaderPage {
     }
 
     public double getShippingCost() {
-        return parseDouble(getElementText(shippingCost));
+        String shipping = getElementText(shippingCost);
+        if (shipping.equals("Free")) return 0;
+        return parseDouble(shipping);
     }
 
     public double getTotalCost() {

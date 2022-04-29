@@ -103,12 +103,13 @@ public class HeaderPage extends FooterPage {
         return this;
     }
 
-    public boolean isSubMenuDisplayed(WebElement category) {
+    public HeaderPage checkSubMenuDisplayed(WebElement category) {
         if (category.getText().equals("ART")) {
             log.info("ART category don't have submenu");
-            return true;
+            return this;
         }
-        return isElementVisible(findElementInAnotherElement(category, subMenuSelector));
+        softAssert.assertThat(isElementVisible(findElementInAnotherElement(category, subMenuSelector))).isTrue();
+        return this;
     }
 
     public HeaderPage hoverOnCategory(WebElement category) {
@@ -155,6 +156,11 @@ public class HeaderPage extends FooterPage {
     public boolean isShoppingCartUpdated(int countBefore, int addCount) {
         log.info("Items count before: " + countBefore);
         return countBefore + addCount == getShoppingCartItemsCount();
+    }
+
+    public HeaderPage assertAll(){
+        softAssert.assertAll();
+        return this;
     }
     //endregion
 }

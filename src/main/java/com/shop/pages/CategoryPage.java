@@ -1,7 +1,6 @@
 package com.shop.pages;
 
 import com.shop.pages.models.ProductModel;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

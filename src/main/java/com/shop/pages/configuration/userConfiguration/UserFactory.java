@@ -5,15 +5,12 @@ import com.shop.models.User;
 import com.shop.pages.handlers.DataHandler;
 import com.shop.pages.handlers.FileHandler;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
 public class UserFactory extends DataHandler {
-    private static Logger log = LoggerFactory.getLogger(UserFactory.class);
     private FileHandler fileHandler;
     private static final String userJsonPath = "src/main/resources/files/accounts.json";
 

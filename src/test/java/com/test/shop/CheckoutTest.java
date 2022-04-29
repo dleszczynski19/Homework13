@@ -24,7 +24,8 @@ public class CheckoutTest extends TestBase {
                 .addItemsToBasket(4, homePage.getRandomNumber(1, 3), true)
                 .addItemToBasket(homePage.getRandomNumber(1, 3), false);
 
-        new CheckoutStep(driver, new ShippingFactory(driver).getRandomShippingPropertiesForPoland(), headerStep.getItemList())
+        CheckoutStep checkoutStep = new CheckoutStep(driver, new ShippingFactory(driver).getRandomShippingPropertiesForPoland(), headerStep.getItemList());
+        checkoutStep
                 .fillShoppingProperty()
                 .fillPaymentMethod()
                 .checkOrderItems()
@@ -32,6 +33,7 @@ public class CheckoutTest extends TestBase {
                 .checkOrderProperties()
                 .checkOrderDetails();
 
+        checkoutStep.assertCheckoutTest();
         log.info(passed, passedMessage);
     }
 }

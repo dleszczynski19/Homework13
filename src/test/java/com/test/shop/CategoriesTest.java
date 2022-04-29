@@ -16,6 +16,8 @@ public class CategoriesTest extends TestBase {
         headerStep
                 .checkEachCategoryProperties()
                 .checkEachSubcategoryProperties();
+
+        headerStep.assertCategoriesTest();
         log.info(passed, passedMessage);
     }
 }

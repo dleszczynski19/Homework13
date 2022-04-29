@@ -1,6 +1,6 @@
 package com.shop.pages;
 
-import com.shop.pages.models.OrderDetailsItemModel;
+import com.shop.pages.models.items.OrderDetailsItemModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -60,7 +60,7 @@ public class OrderDetailsPage extends HeaderPage {
         String[] array;
         if (isDeliveryAddress) array = deliveryAddress;
         else array = invoiceAddress;
-        return array[2].replaceAll(getZipCode(isDeliveryAddress), "");
+        return array[2].replaceAll(getZipCode(isDeliveryAddress) + " ", "");
     }
 
     public String getCountry(boolean isDeliveryAddress) {

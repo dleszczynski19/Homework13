@@ -1,4 +1,4 @@
-package com.shop.pages.models;
+package com.shop.pages.models.items;
 
 import com.shop.pages.HeaderPage;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BasketRowModel extends HeaderPage {
+public class BasketRowModel extends HeaderPage implements productsProperties{
     private Logger log = LoggerFactory.getLogger(BasketRowModel.class);
 
     public BasketRowModel(WebDriver driver, WebElement basketRow) {
@@ -58,7 +58,7 @@ public class BasketRowModel extends HeaderPage {
         return getElementText(productName);
     }
 
-    public double getProductPrice() {
+    public double getProductUnitPrice() {
         return parseDouble(getElementText(productPrice));
     }
 
@@ -93,7 +93,7 @@ public class BasketRowModel extends HeaderPage {
         return parseInt(getElementValue(productQuantity));
     }
 
-    public Double getProductSummaryPrice() {
+    public double getProductTotalPrice() {
         return parseDouble(getElementText(productSummaryPrice));
     }
 
@@ -129,8 +129,8 @@ public class BasketRowModel extends HeaderPage {
 
     @Override
     public String toString() {
-        return "Name: " + getProductName() + "\nPrice: " + getProductPrice() + "\nSize: " + getProductSize() + "\nColor: " + getProductColor()
-                + "\nDimension: " + getProductDimension() + "\nQuantity: " + getProductQuantity() + "\nSummary: " + getProductSummaryPrice()
+        return "Name: " + getProductName() + "\nPrice: " + getProductUnitPrice() + "\nSize: " + getProductSize() + "\nColor: " + getProductColor()
+                + "\nDimension: " + getProductDimension() + "\nQuantity: " + getProductQuantity() + "\nSummary: " + getProductTotalPrice()
                 + "\n------------------------------------------------------";
     }
 }

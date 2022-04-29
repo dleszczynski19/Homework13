@@ -16,11 +16,13 @@ public class BasketTest extends TestBase {
         headerStep
                 .addItemsToBasket(headerStep.parseInt(System.getProperty("basketTestItemToAdd")), true)
                 .goToBasket();
-        log.info("Items properly add to basket");
+
         headerStep
                 .checkBasketItems()
                 .checkBasketQuantity()
-                .checkEachItemDelete();
+                .checkEachItemDeleted();
+
+        headerStep.assertBasketTest();
         log.info(passed, passedMessage);
     }
 }
