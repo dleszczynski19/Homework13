@@ -225,6 +225,10 @@ public class WebElementHelper extends BasePage {
         return element.getAttribute("value");
     }
 
+    public String getElementAttribute(WebElement element, String attribute) {
+        return element.getAttribute(attribute);
+    }
+
     public WebElement getRandomElement(List<WebElement> list) {
         return list.get(new Random().nextInt(list.size()));
     }

@@ -102,6 +102,7 @@ public class ProductPage extends HeaderPage {
                         .collect(Collectors.toList());
                 itemModel = collect.get(0);
             } else itemCartModel.addItem(itemModel);
+            log.info("Item added");
         } else log.warn("Can't add item to cart");
         return new AddToCartModalPage(driver, itemModel, quantityCount);
     }
@@ -112,12 +113,12 @@ public class ProductPage extends HeaderPage {
 
     public boolean isCorrectLabelDisplayed(String label) {
         waitForElement(discountLabel);
-        return label.equals(discountLabel.getText());
+        return label.equals(getElementText(discountLabel));
     }
 
     public String getDiscountLabel() {
         try {
-            return discountLabel.getText();
+            return getElementText(discountLabel);
         } catch (Exception e) {
             log.warn("Item don't have discount");
             return null;
@@ -133,14 +134,14 @@ public class ProductPage extends HeaderPage {
     }
 
     public String getProductName() {
-        String productName = itemName.getText();
+        String productName = getElementText(itemName);
         this.productName = productName;
         return productName;
     }
 
     public Double getProductPrice() {
         if (isPriceDisplayed()) {
-            double price = parseDouble(productPrice.getText());
+            double price = parseDouble(getElementText(productPrice));
             log.info(productName + " price: " + price);
             return price;
         } else return null;
@@ -154,27 +155,27 @@ public class ProductPage extends HeaderPage {
 
     public Double getProductRegularPrice() {
         if (isRegularPriceDisplayed()) {
-            double regularPrice = parseDouble(productRegularPrice.getText());
+            double regularPrice = parseDouble(getElementText(productRegularPrice));
             log.info(productName + " regular price: " + regularPrice);
             return regularPrice;
         } else return null;
     }
 
     public int getQuantityAmount() {
-        int amount = parseInt(quantityAmount.getAttribute("value"));
+        int amount = parseInt(getElementValue(quantityAmount));
         log.info(productName + " amount: " + amount);
         return amount;
     }
 
     public String getProductDescription() {
-        String description = productDescription.getText();
+        String description = getElementText(productDescription);
         log.info(productName + " description: " + description);
         return description;
     }
 
     public String getProductSize() {
         try {
-            String size = getSelect(productSize).getFirstSelectedOption().getText();
+            String size = getElementText(getSelect(productSize).getFirstSelectedOption());
             log.info(productName + " size: " + size);
             return size;
         } catch (Exception e) {
@@ -185,7 +186,7 @@ public class ProductPage extends HeaderPage {
 
     public String getDimension() {
         try {
-            String dimension = getSelect(productDimension).getFirstSelectedOption().getText();
+            String dimension = getElementText(getSelect(productDimension).getFirstSelectedOption());
             log.info(productName + " size: " + dimension);
             return dimension;
         } catch (Exception e) {
@@ -196,7 +197,7 @@ public class ProductPage extends HeaderPage {
 
     public String getProductColor() {
         try {
-            String color = productColour.getAttribute("title");
+            String color = getElementAttribute(productColour, "title");
             log.info(productName + " color: " + color);
             return color;
         } catch (Exception e) {

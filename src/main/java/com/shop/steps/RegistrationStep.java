@@ -19,11 +19,8 @@ public class RegistrationStep extends HeaderPage {
     }
 
     public RegistrationStep registryUser() {
-        LoginPage loginPage = new LoginPage(driver);
-        UserFactory userFactory = new UserFactory(driver);
-
         goToSignIn();
-        loginPage
+        new LoginPage(driver)
                 .goToRegistration()
                 .chooseGenderTitle(RegistrationPage.GenderTitle.valueOf(user.getSocialTitle()))
                 .fillFirstName(user.getFirstName())
@@ -38,7 +35,7 @@ public class RegistrationStep extends HeaderPage {
                 .clickOnSaveButton();
         softAssert.assertThat(getUserAccountName()).isEqualTo(user.getFirstName() + " " + user.getLastName());
         softAssert.assertAll();
-        userFactory.getFileHandler().addUserToFile(user);
+        new UserFactory(driver).getFileHandler().addUserToFile(user);
         log.info("User registered");
         return this;
     }

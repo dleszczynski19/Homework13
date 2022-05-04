@@ -13,6 +13,7 @@ public class CategoriesTest extends TestBase {
     public void shouldMatchesAllCategoriesProperties() {
         HeaderStep headerStep = new HeaderStep(driver, homePage);
 
+        log.info("Start matches all categories properties test");
         headerStep
                 .checkEachCategoryProperties()
                 .checkEachSubcategoryProperties();

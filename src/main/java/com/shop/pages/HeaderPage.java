@@ -80,7 +80,7 @@ public class HeaderPage extends FooterPage {
 
     public boolean isItemDisplayedInDropdown(String itemName) {
         hoverElement(dropDown);
-        return dropDownList.stream().anyMatch(element -> element.getText().equals(itemName));
+        return dropDownList.stream().anyMatch(element -> getElementText(element).equals(itemName));
     }
 
     public HeaderPage searchItem(String searchText) {
@@ -104,7 +104,7 @@ public class HeaderPage extends FooterPage {
     }
 
     public HeaderPage checkSubMenuDisplayed(WebElement category) {
-        if (category.getText().equals("ART")) {
+        if (getElementText(category).equals("ART")) {
             log.info("ART category don't have submenu");
             return this;
         }
@@ -139,7 +139,7 @@ public class HeaderPage extends FooterPage {
         return this;
     }
 
-    public HeaderPage goToMyAccount(){
+    public HeaderPage goToMyAccount() {
         clickOnElement(accountLabel);
         return this;
     }
@@ -158,7 +158,7 @@ public class HeaderPage extends FooterPage {
         return countBefore + addCount == getShoppingCartItemsCount();
     }
 
-    public HeaderPage assertAll(){
+    public HeaderPage assertAll() {
         softAssert.assertAll();
         return this;
     }

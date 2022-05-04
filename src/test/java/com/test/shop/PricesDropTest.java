@@ -14,15 +14,12 @@ public class PricesDropTest extends TestBase {
         PricesDropStep pricesDropStep = new PricesDropStep(driver);
 
         log.info("Start prices drop check test");
-        boolean firstCondition = pricesDropStep
+        pricesDropStep
                 .goToPricesDropPage()
-                .isEachPricesDropProductDisplayedCorrectValue();
-        log.info("First condition is: " + firstCondition);
-        boolean secondCondition = pricesDropStep
+                .checkIsEachPricesDropProductDisplayedCorrectValue()
                 .clickOnRandomProduct()
-                .isProductDisplayedCorrectValue();
-        log.info("Second condition is: " + secondCondition);
-        assert firstCondition && secondCondition;
+                .checkIsProductDisplayedCorrectValue()
+                .assertPricesDropTest();
         log.info(passed, passedMessage);
     }
 }

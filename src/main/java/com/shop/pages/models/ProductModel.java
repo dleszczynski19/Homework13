@@ -38,16 +38,16 @@ public class ProductModel extends DataHandler {
     private WebElement productLink;
 
     public String getProductName() {
-        return productName.getText();
+        return getElementText(productName);
     }
 
     public double getProductPrice() {
-        return parseDouble(productPrice.getText());
+        return parseDouble(getElementText(productPrice));
     }
 
     public Double getRegularPrice() {
         try {
-            return parseDouble(regularPrice.getText());
+            return parseDouble(getElementText(regularPrice));
         } catch (Exception e) {
             log.info("Item don't have regular price");
             return null;
@@ -55,11 +55,11 @@ public class ProductModel extends DataHandler {
     }
 
     public String getCurrency() {
-        return productPrice.getText().replaceAll("[0-9.]", "");
+        return getElementText(productPrice).replaceAll("[0-9.]", "");
     }
 
     public String getProductImage() {
-        return productImage.getAttribute("src");
+        return getElementAttribute(productImage, "src");
     }
 
     public WebElement getProductWebElement() {
@@ -68,7 +68,7 @@ public class ProductModel extends DataHandler {
 
     public String getProductDiscount() {
         try {
-            return productDiscount.getText();
+            return getElementText(productDiscount);
         } catch (Exception e) {
             log.info("Item don't have discount");
             return null;
@@ -77,7 +77,7 @@ public class ProductModel extends DataHandler {
 
     public Double getProductDiscountValue() {
         try {
-            return Double.parseDouble(productDiscount.getText().replaceAll("[^0-9]", ""));
+            return parseDouble(getElementText(productDiscount));
         } catch (Exception e) {
             log.info("Item don't have discount");
             return null;

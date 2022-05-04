@@ -74,7 +74,6 @@ public class CategoryPage extends HeaderPage {
                 double productPrice = productModel.getProductPrice();
                 isTrue = productPrice >= getPriceFilter(true) &&
                         productPrice <= getPriceFilter(false);
-                log.info("Product price: " + productPrice);
             } else return false;
         }
         return isTrue;
@@ -93,7 +92,7 @@ public class CategoryPage extends HeaderPage {
     }
 
     public String[] getPriceFilterValues() {
-        return priceFilterLabel.getText().replaceAll("[^0-9.-]", "").split("-");
+        return getElementText(priceFilterLabel).replaceAll("[^0-9.-]", "").split("-");
     }
 
     public double getPriceFilter(boolean isMin) {
@@ -111,7 +110,7 @@ public class CategoryPage extends HeaderPage {
     }
 
     public String getCategoryHeader() {
-        return categoryHeader.getText();
+        return getElementText(categoryHeader);
     }
 
     public int getProductsAmount() {
@@ -119,7 +118,7 @@ public class CategoryPage extends HeaderPage {
     }
 
     public int getLabelProductsAmount() {
-        return parseInt(rowSelections.getText());
+        return parseInt(getElementText(rowSelections));
     }
 
     public List<ProductModel> getAllProductsList() {

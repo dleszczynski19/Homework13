@@ -13,6 +13,7 @@ public class BasketTest extends TestBase {
     public void shouldCheckBasketProperlyWork() {
         HeaderStep headerStep = new HeaderStep(driver, homePage);
 
+        log.info("Start checking basket properly work test");
         headerStep
                 .addItemsToBasket(headerStep.parseInt(System.getProperty("basketTestItemToAdd")), true)
                 .goToBasket();

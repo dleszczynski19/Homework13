@@ -26,7 +26,6 @@ public class HomePage extends HeaderPage {
     @FindBy(css = "#main [itemprop=\"itemListElement\"]")
     private List<WebElement> productsList;
 
-    //region Products
     public String getRandomProductName() {
         waitForElement(productsList.get(1));
         currentProduct = allProductsList.get(getRandomNumber(0, allProductsList.size() - 1));
@@ -66,5 +65,4 @@ public class HomePage extends HeaderPage {
     public List<WebElement> getProductsList() {
         return productsList;
     }
-    //endregion
 }

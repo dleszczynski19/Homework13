@@ -11,13 +11,13 @@ public class ShoppingCartTest extends TestBase {
 
     @Test
     public void isProductSuccessfullyAddedToCart() {
-        HeaderStep headerStep = new HeaderStep(driver, homePage);
-
-        for (int i = 0; i < 3; i++) {
-            assert headerStep
+        log.info("Start successfully added item to cart test");
+        for (int i = 0; i < homePage.parseInt(System.getProperty("shoppingCartTestRepetitionsNumber")); i++) {
+            assert new HeaderStep(driver, homePage)
                     .clickOnRandomItem()
                     .isItemProperlyAddToCart() : "Item is not properly added to cart";
             homePage.goToHomePage();
         }
+        log.info(passed, passedMessage);
     }
 }

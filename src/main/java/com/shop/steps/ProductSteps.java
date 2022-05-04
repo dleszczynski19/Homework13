@@ -26,15 +26,15 @@ public class ProductSteps extends HeaderPage {
         this.productPage = productPage;
     }
 
-    public boolean isProductDisplayedCorrectValue() {
+    public ProductSteps checkIsProductDisplayedCorrectValue() {
         if (isProductLoaded(productName)) {
             ProductPage productPage = new ProductPage(driver, productName);
-            return productPage.isCorrectLabelDisplayed(System.getProperty("discountLabel")) &&
-                    productPage.isCorrectDiscount(System.getProperty("discountValue"));
+            softAssert.assertThat(productPage.isCorrectLabelDisplayed(System.getProperty("discountLabel"))).isTrue();
+            softAssert.assertThat(productPage.isCorrectDiscount(System.getProperty("discountValue"))).isTrue();
         } else {
             log.error("Page is not loaded properly");
-            return false;
         }
+        return this;
     }
 
     public boolean isItemProperlyAdded() {
@@ -46,6 +46,10 @@ public class ProductSteps extends HeaderPage {
                 .createItemModel()
                 .addItemToCart()
                 .isProperlyItemAdd() && isShoppingCartUpdated(shoppingCartAmount, quantityToSet);
+    }
 
+    public ProductSteps assertPricesDropTest() {
+        softAssert.assertAll();
+        return this;
     }
 }

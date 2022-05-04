@@ -13,5 +13,15 @@ environments:
     basketTestItemToAdd: 5
     basketTestProductToModify: 0
     basketTestProductQuantity: 5
+    checkoutTestItemCount: 5
+    checkoutTestMinQuantity: 1
+    checkoutTestMaxQuantity: 3
+    shoppingCartTestRepetitionsNumber: 3
   integrate:
     envName: integrate
+    discount: -30%
+    discountValue: 20
+    discountLabel: SAVE 20%
+    basketTestItemToAdd: 5
+    basketTestProductToModify: 0
+    basketTestProductQuantity: 5

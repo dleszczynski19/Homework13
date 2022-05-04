@@ -15,14 +15,18 @@ public class CheckoutTest extends TestBase {
 
     @Test
     public void shouldCheckEachCheckoutPlaceValues() {
-        RegistrationStep registrationStep = new RegistrationStep(driver, new UserFactory(driver).getRandomUser());
         HeaderStep headerStep = new HeaderStep(driver, homePage);
 
-        registrationStep.registryUser();
+        log.info("Start checking each place values for checkout test");
+        new RegistrationStep(driver, new UserFactory(driver).getRandomUser()).registryUser();
 
         headerStep
-                .addItemsToBasket(4, homePage.getRandomNumber(1, 3), true)
-                .addItemToBasket(homePage.getRandomNumber(1, 3), false);
+                .addItemsToBasket(homePage.parseInt(System.getProperty("checkoutTestItemCount")), homePage.getRandomNumber(
+                        homePage.parseInt(System.getProperty("checkoutTestMinQuantity")),
+                        homePage.parseInt(System.getProperty("checkoutTestMaxQuantity"))), true)
+                .addItemToBasket(homePage.getRandomNumber(
+                        homePage.parseInt(System.getProperty("checkoutTestMinQuantity")),
+                        homePage.parseInt(System.getProperty("checkoutTestMaxQuantity"))), false);
 
         CheckoutStep checkoutStep = new CheckoutStep(driver, new ShippingFactory(driver).getRandomShippingPropertiesForPoland(), headerStep.getItemList());
         checkoutStep

@@ -64,7 +64,6 @@ public class CheckoutPage extends HeaderPage {
     @FindBy(css = ".js-address-form [type=\"submit\"]")
     private WebElement saveButton;
 
-    //    @FindBy(css = ".delivery-options .custom-radio.float-xs-left")
     @FindBy(css = ".row.carrier")
     private List<WebElement> shippingMethodRadioList;
 

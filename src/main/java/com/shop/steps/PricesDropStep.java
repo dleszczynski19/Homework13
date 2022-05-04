@@ -34,16 +34,12 @@ public class PricesDropStep extends HeaderPage {
         return this;
     }
 
-    public boolean isEachPricesDropProductDisplayedCorrectValue() {
-        boolean isTrue;
+    public PricesDropStep checkIsEachPricesDropProductDisplayedCorrectValue() {
         for (ProductModel product : allProductsList) {
-            isTrue = pricesDropPage.isPricesDropProductDisplayedCorrectValue(product);
-            if (!isTrue) {
-                log.error("Product values are not properly");
-                return false;
-            }
+            softAssert.assertThat(pricesDropPage.isPricesDropProductDisplayedCorrectValue(product)).isTrue();
         }
-        return true;
+        softAssert.assertAll();
+        return this;
     }
 
     public ProductSteps clickOnRandomProduct() {

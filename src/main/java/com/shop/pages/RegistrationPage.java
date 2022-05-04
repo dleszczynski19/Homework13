@@ -87,7 +87,6 @@ public class RegistrationPage extends HeaderPage {
     }
 
     public RegistrationPage fillBirthday(String day, String month, String year) {
-        log.info("BRITHDAY: " + month + "/" + day + "/" + year);
         sendKeysToElement(birthdayInput, month + "/" + day + "/" + year);
         return this;
     }
@@ -115,6 +114,7 @@ public class RegistrationPage extends HeaderPage {
     public HomePage clickOnSaveButton() {
         clickOnElement(saveButton);
         waitForPageLoaded();
+        log.info("User properly registered");
         return new HomePage(driver);
     }
 }

@@ -59,7 +59,10 @@ public class CategoryStep extends HeaderPage {
         categoryPage.setPriceFilter(maxFilterValue, false);
         softAssert.assertThat(categoryPage.setALlCategoryProducts()
                 .isProductsPriceMatchWithFilter()).isTrue();
-        softAssert.assertAll();
         return this;
+    }
+
+    public void checkFilterTest(){
+        softAssert.assertAll();
     }
 }
